@@ -1,5 +1,5 @@
-using AspNetCore.Infrastructure.HealthCheck;
-using AspNetCore.Infrastructure.HealthCheck.Http;
+using CodeHike.Infrastructure.HealthCheck;
+using CodeHike.Infrastructure.HealthCheck.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -39,7 +39,7 @@ namespace HealthCheckWebapi
             app.UseMvc ();
 
             // The API is now fully initialized.
-            HttpHealthService.Default.ToggleState (Health.Up);
+            HttpHealthService.ToggleState(Health.Up);
         }
     }
 }
