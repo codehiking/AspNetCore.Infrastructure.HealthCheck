@@ -7,12 +7,14 @@ namespace CodeHike.Infrastructure.HealthCheck.Http {
     /// <summary>
     /// Provides extensions.
     /// </summary>
-    public static class HealthCheckExtensions {
+    public static class HealthCheckExtensions
+    {
         /// <summary>
         /// Add HTTP health service to the provided <see cref="IServiceCollection"/>.
         /// </summary>
         /// <param name="healthService"></param>
-        public static IServiceCollection AddHttpHealthService (this IServiceCollection services, IHttpHealthService healthService) {
+        public static IServiceCollection AddHttpHealthService (this IServiceCollection services, IHttpHealthService healthService)
+        {
             return services.AddSingleton (healthService);
         }
 
@@ -20,8 +22,9 @@ namespace CodeHike.Infrastructure.HealthCheck.Http {
         /// Add default HTTP health service to the provided <see cref="IServiceCollection"/>.
         /// </summary>
         /// <param name="healthService"></param>
-        public static IServiceCollection AddHttpHealthService (this IServiceCollection services) {
-            return services.AddHttpHealthService (HttpHealthService.Default);
+        public static IServiceCollection AddHttpHealthService (this IServiceCollection services)
+        {
+            return services.AddSingleton(HttpHealthService.Default);
         }
 
         /// <summary>
