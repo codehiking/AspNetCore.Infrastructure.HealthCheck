@@ -24,7 +24,7 @@ namespace CodeHike.Infrastructure.HealthCheck.Http {
         /// <param name="healthService"></param>
         public static IServiceCollection AddHttpHealthService (this IServiceCollection services)
         {
-            return services.AddSingleton(HttpHealthService.Default);
+            return services.AddSingleton<IHttpHealthService>(HttpHealthService.Default);
         }
 
         /// <summary>
