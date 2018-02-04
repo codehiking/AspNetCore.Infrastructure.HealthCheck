@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace AspNetCore.Infrastructure.HealthCheck.Http {
+namespace CodeHike.Infrastructure.HealthCheck.Http {
     /// <summary>
     /// Implements both a health check based on an enumeration provided by the user of the class and a Http
     /// </summary>

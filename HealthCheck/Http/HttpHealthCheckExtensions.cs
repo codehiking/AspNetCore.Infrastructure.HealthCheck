@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AspNetCore.Infrastructure.HealthCheck.Http {
+namespace CodeHike.Infrastructure.HealthCheck.Http {
     /// <summary>
     /// Provides extensions.
     /// </summary>

@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace AspNetCore.Infrastructure.HealthCheck.Http {
+namespace CodeHike.Infrastructure.HealthCheck.Http {
     /// <summary>
     /// Defines a contract to handle health over HTTP requests.
     /// </summary>

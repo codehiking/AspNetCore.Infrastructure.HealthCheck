@@ -1,4 +1,4 @@
-namespace AspNetCore.Infrastructure.HealthCheck {
+namespace CodeHike.Infrastructure.HealthCheck {
     /// <summary>
     /// Default health enumeration.
     /// </summary>
