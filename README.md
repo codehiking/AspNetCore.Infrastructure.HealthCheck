@@ -1,11 +1,13 @@
+# HTTP Health checking for ASP.NET applications.
+
 HTTP health checking is a common way to balance load amongs instances of the same HTTP service. Instances hosting the service are reponsible of exposing an HTTP route that will generally indicates their respective states through the use of HTTP status.
 
 - An HTTP 2xx generally means that the service is up and running.
 - An HTTP 5xx is used to indicates that the service is unavailable.
 
-The HTTP response may or may not response with a content. Some load balancers are designed to check for a specific response like "UP" in the content rather than checking the HTTP status code.
+The HTTP response may or may not response with a content. Some load-balancers are designed to check for a specific response like "UP" in the content rather than checking the HTTP status code.
 
-This repository gives an example of a ASP.NET Core Middleware used to expose the status of the a web API to the load balancer located upstream of the HTTP traffic.
+This repository gives an example of a ASP.NET Core Middleware used to expose the status of the HTTP service to the load-balancer located upstream of the HTTP traffic.
 
 Here is how you can configure Dependency Injection for your application:
 
@@ -17,12 +19,14 @@ public void ConfigureServices (IServiceCollection services)
 }
 ```
 
-Then, you need to add the middleware to the pipeline.
+Then, you need to add the middleware to the requests pipeline.
 
 ```csharp
+// By default, "/status" will be trap by the middleware.
 app.UseHttpHealthCheck();
 app.UseMvc();
 ```
+
 Finally, when the application is initialized, just toggle the global switch and you're done.
 
 ```csharp
