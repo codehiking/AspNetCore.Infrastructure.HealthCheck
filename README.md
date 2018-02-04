@@ -36,13 +36,19 @@ HttpHealthService.ToggleState(Health.Up);
 
 ### Read the current status
 
-GET
+```
+curl -X GET -i http://localhost:5000/status
+```
 
 ### Rolling upgrade scenario, change current state
 
 Unavailaibility is not necessary caused by issues on the current service. It can also means that a rolling upgrade of the service is ongoing on a specific instance.
 
-The middleware supports PUT operation. 
+The middleware supports PUT operation.
+
+```
+curl -X PUT -i http://localhost:5000/status --data Down
+```
 
 ### Testing the API
 
@@ -55,11 +61,3 @@ public void ConfigureServices (IServiceCollection services)
     services.AddHttpHealthService("/myhealthcheckroute");
 }
 ```
-
-### Testing the API
-
-
-GET / SET
-
-
-T
