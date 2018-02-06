@@ -1,32 +1,27 @@
-using CodeHike.Infrastructure.HealthCheck;
-using CodeHike.Infrastructure.HealthCheck.Http;
+using CodeHike.Microservices.HttpHealthCheck;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
-namespace HealthCheckWebapi
+namespace WebApiExample
 {
-
     public class Startup
     {
         public Startup (IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
         public IConfiguration Configuration
         {
             get;
         }
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices (IServiceCollection services)
         {
             services.AddMvc ();
             services.AddHttpHealthService ();
         }
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure (IApplicationBuilder app, IHostingEnvironment env)
         {
@@ -34,12 +29,10 @@ namespace HealthCheckWebapi
             {
                 app.UseDeveloperExceptionPage ();
             }
-
             app.UseHttpHealthCheck ();
             app.UseMvc ();
-
             // The API is now fully initialized.
-            HttpHealthService.ToggleState(Health.Up);
+            HttpHealthService.ToggleState (Health.Up);
         }
     }
 }

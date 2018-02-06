@@ -1,6 +1,4 @@
 {
     "omnisharp.useEditorFormattingSettings": false,
-    "csharp.format.enable": false,
-    "csharpfixformat.style.braces.onSameLine": false,
-    "csharpfixformat.style.braces.allowInlines": false
+    "csharp.format.enable": false
 }

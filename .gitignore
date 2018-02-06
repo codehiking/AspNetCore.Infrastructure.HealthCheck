@@ -1,8 +1,4 @@
-
-HealthCheck/obj/
-
-HealthCheckWebapi/obj/
-
-HealthCheck/bin/
-
-HealthCheckWebapi/bin/
+CodeHike.Microservices.HttpHealthCheck/obj/
+CodeHike.Microservices.HttpHealthCheck/bin/
+WebApiExample/obj/
+WebApiExample/bin/
