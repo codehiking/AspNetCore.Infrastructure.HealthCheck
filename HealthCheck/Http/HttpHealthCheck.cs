@@ -6,16 +6,29 @@ using Microsoft.AspNetCore.Http;
 
 namespace CodeHike.Infrastructure.HealthCheck.Http
 {
+    /// <summary>
+    /// Implements a basic HTTP Health check.
+    /// </summary>
     public class HttpHealthCheck : IHttpHealthService
     {
-        private readonly Health _healthy;
-        private volatile Health _health;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HttpHealthCheck"/> class.
+        /// </summary>
+        /// <param name="initial"></param>
+        /// <param name="healthy"></param>
         public HttpHealthCheck (Health initial, Health healthy)
         {
             _healthy = healthy;
             _health = initial;
         }
+        
+        private readonly Health _healthy;
+        private volatile Health _health;
+
+        /// <summary>
+        /// Gets a representation of the current health.
+        /// </summary>
+        public string Health => _health.ToString();
 
         public bool IsHealthy ()
         {
