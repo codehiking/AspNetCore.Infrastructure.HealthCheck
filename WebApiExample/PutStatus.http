@@ -1,0 +1,5 @@
+PUT http://localhost:5000/status HTTP/1.1
+content-type: text/plain
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.QUEdDhvAE1CzyFPxW2rba7-aghLNf9WSJE5-td68a8g
+
+Down
