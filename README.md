@@ -70,7 +70,7 @@ public void ConfigureServices (IServiceCollection services)
 }
 ```
 
-### Testing the API
+### Configure your own status route
 
 The default route is /status. It can be configured in the Startup.cs file this way:
 
