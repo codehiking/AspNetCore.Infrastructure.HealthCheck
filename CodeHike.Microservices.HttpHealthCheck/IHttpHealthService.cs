@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 
-namespace CodeHike.Infrastructure.HealthCheck.Http
+using Microsoft.AspNetCore.Http;
+namespace CodeHike.Microservices.HttpHealthCheck
 {
     /// <summary>
     /// Defines a contract to handle health over HTTP requests.
@@ -11,13 +11,11 @@ namespace CodeHike.Infrastructure.HealthCheck.Http
         /// <summary>
         /// Checker whether the service is healty or not.
         /// </summary>
-        bool IsHealthy ();
-
+        bool IsHealthy { get; }
         /// <summary>
-        /// Handles a put request in order to change the current state.
+        /// Handles a PUT request in order to change the current state.
         /// </summary>
         Task HttpPutRequestReceived (HttpContext httpContext);
-
         /// <summary>
         /// Gets a string representation of the current health.
         /// </summary>

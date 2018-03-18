@@ -1,15 +1,15 @@
 {
-        "version": "2.0.0",
-        "tasks": [
-            {
-                "taskName": "build",
-                "command": "dotnet",
-                "type": "process",
-                "args": [
-                    "build",
-                    "${workspaceFolder}/HealthCheckWebapi//HealthCheckWebapi.csproj"
-                ],
-                "problemMatcher": "$msCompile"
-            }
-        ]
-    }
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/WebApiExample//WebApiExample.csproj"
+            ],
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}

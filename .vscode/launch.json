@@ -6,9 +6,9 @@
                 "type": "coreclr",
                 "request": "launch",
                 "preLaunchTask": "build",
-                "program": "${workspaceFolder}/HealthCheckWebapi//bin/Debug/netcoreapp2.0/HealthCheckWebapi.dll",
+                "program": "${workspaceFolder}/WebApiExample/bin/Debug/netcoreapp2.0/WebApiExample.dll",
                 "args": [],
-                "cwd": "${workspaceFolder}/HealthCheckWebapi/",
+                "cwd": "${workspaceFolder}/WebApiExample/",
                 "stopAtEntry": false,
                 "internalConsoleOptions": "openOnSessionStart",
                 "launchBrowser": {

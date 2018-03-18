@@ -1,10 +1,14 @@
-using System.Net.Http; 
-using System.Threading.Tasks; 
+using System.Net.Http;
+using System.Threading.Tasks;
+using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Builder; 
-using Microsoft.Extensions.DependencyInjection; 
+using Microsoft.Extensions.DependencyInjection;
+using System.Collections;
+using System.Collections.Generic;
+using CodeHike.Microservices.HttpHealthCheck.Authorization;
 
-namespace CodeHike.Infrastructure.HealthCheck.Http
+namespace CodeHike.Microservices.HttpHealthCheck
 {
     /// <summary>
     /// Provides extensions.
@@ -17,18 +21,16 @@ namespace CodeHike.Infrastructure.HealthCheck.Http
         /// <param name="healthService"></param>
         public static IServiceCollection AddHttpHealthService (this IServiceCollection services, IHttpHealthService healthService)
         {
-            return services.AddSingleton (healthService); 
+            return services.AddSingleton (healthService);
         }
-
         /// <summary>
         /// Add default HTTP health service to the provided <see cref="IServiceCollection"/>.
         /// </summary>
         /// <param name="healthService"></param>
         public static IServiceCollection AddHttpHealthService (this IServiceCollection services)
         {
-            return services.AddSingleton<IHttpHealthService>(HttpHealthService.Default); 
+            return services.AddSingleton<IHttpHealthService> (HttpHealthService.Default);
         }
-
         /// <summary>
         /// Add HTTP base health check middleware to the <see cref="IApplicationBuilder"/> request execution pipe.
         /// </summary>
@@ -36,33 +38,39 @@ namespace CodeHike.Infrastructure.HealthCheck.Http
         /// <param name="path">The path to use as healhcheck route.</param>
         public static void UseHttpHealthCheck (this IApplicationBuilder builder, string path = "/status")
         {
-            builder.Map (path, (app) => 
+            builder.Map (path, (app) =>
             {
-                app.Run (async ctx => 
+                app.Run (async ctx =>
                 {
-                    IHttpHealthService service = ctx.RequestServices.GetRequiredService <IHttpHealthService>(); 
-
+                    IHttpHealthService service = ctx.RequestServices.GetRequiredService<IHttpHealthService> ();
+                    
                     if (HttpMethod.Get.Method.Equals (ctx.Request.Method))
                     {
-                        IHttpHealthService checker = ctx.RequestServices.GetRequiredService <IHttpHealthService>();
+                        IHttpHealthService checker = ctx.RequestServices.GetRequiredService<IHttpHealthService> ();
                         ctx.Response.ContentType = "text/plain";
-
-                        await ctx.Response.WriteAsync(checker.Health);
-
-                        if (!checker.IsHealthy ())
+                        await ctx.Response.WriteAsync (checker.Health);
+                        if (!checker.IsHealthy)
                         {
-                            ctx.Response.StatusCode = 503; 
+                            ctx.Response.StatusCode = 503;
                         }
                     }
                     else if (HttpMethod.Put.Method.Equals (ctx.Request.Method))
                     {
                         if (service != null)
                         {
-                            await service.HttpPutRequestReceived (ctx); 
+                            IAuthorizationFilter filter = app.ApplicationServices.GetService<IAuthorizationFilter>();
+
+                            if(filter != null)
+                            {
+                                if(await filter.FilterAsync(ctx))
+                                {
+                                    await service.HttpPutRequestReceived (ctx);
+                                }
+                            }
                         }
                     }
-                }); 
-            }); 
+                });
+            });
         }
     }
 }

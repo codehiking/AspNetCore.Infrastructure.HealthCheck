@@ -1,8 +1,10 @@
-namespace CodeHike.Infrastructure.HealthCheck {
+namespace CodeHike.Microservices.HttpHealthCheck
+{
     /// <summary>
     /// Default health enumeration.
     /// </summary>
-    public enum Health {
+    public enum Health
+    {
         Up,
         Initializing,
         Down
