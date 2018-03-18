@@ -12,24 +12,24 @@ namespace WebApiExample
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main (string[] args)
         {
-            IWebHost webHost = new WebHostBuilder()
-                .UseKestrel()
-                .UseStartup<Startup>()
-                .UseContentRoot(Directory.GetCurrentDirectory())
-                .ConfigureAppConfiguration((a, b) => b
-                    .AddJsonFile("appsettings.json", false, true)
-                    .AddJsonFile($"appsettings.{a.HostingEnvironment.EnvironmentName}.json", true, true))
-                .ConfigureLogging((hostingContext, logging) =>
+            IWebHost webHost = new WebHostBuilder ()
+                .UseKestrel ()
+                .UseStartup<Startup> ()
+                .UseContentRoot (Directory.GetCurrentDirectory ())
+                .ConfigureAppConfiguration ((a, b)=> b
+                    .AddJsonFile ("appsettings.json", false, true)
+                    .AddJsonFile ($"appsettings.{a.HostingEnvironment.EnvironmentName}.json", true, true))
+                .ConfigureLogging ((hostingContext, logging)=>
                 {
-                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));
-                    logging.AddConsole();
-                    logging.AddDebug();
+                    logging.AddConfiguration (hostingContext.Configuration.GetSection ("Logging"));
+                    logging.AddConsole ();
+                    logging.AddDebug ();
                 })
-                .Build();
+                .Build ();
 
-            webHost.Run();
+            webHost.Run ();
         }
     }
 }

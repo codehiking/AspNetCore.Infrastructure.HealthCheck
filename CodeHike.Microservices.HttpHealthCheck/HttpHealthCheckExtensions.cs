@@ -4,6 +4,10 @@ using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections;
+using System.Collections.Generic;
+using CodeHike.Microservices.HttpHealthCheck.Authorization;
+
 namespace CodeHike.Microservices.HttpHealthCheck
 {
     /// <summary>
@@ -39,6 +43,7 @@ namespace CodeHike.Microservices.HttpHealthCheck
                 app.Run (async ctx =>
                 {
                     IHttpHealthService service = ctx.RequestServices.GetRequiredService<IHttpHealthService> ();
+                    
                     if (HttpMethod.Get.Method.Equals (ctx.Request.Method))
                     {
                         IHttpHealthService checker = ctx.RequestServices.GetRequiredService<IHttpHealthService> ();
@@ -53,33 +58,12 @@ namespace CodeHike.Microservices.HttpHealthCheck
                     {
                         if (service != null)
                         {
-                            string authorization = ctx.Request.Headers["Authorization"];
+                            IAuthorizationFilter filter = app.ApplicationServices.GetService<IAuthorizationFilter>();
 
-                            if (string.IsNullOrEmpty (authorization))
+                            if(await filter.FilterAsync(ctx))
                             {
-                                // Not authorized
-                                ctx.Response.StatusCode = 403;
-                                return;
+                                await service.HttpPutRequestReceived (ctx);
                             }
-                            
-                            string token = null;
-
-                            if (authorization.StartsWith ("Bearer ", StringComparison.OrdinalIgnoreCase))
-                            {
-                                token = authorization.Substring ("Bearer ".Length).Trim ();
-                            }
-
-                            if (string.IsNullOrEmpty (token))
-                            {
-                                ctx.Response.StatusCode = 403;
-                                return;
-                            }
-
-                            byte[] secretKey = System.Text.Encoding.UTF8.GetBytes("magicString");
-
-                            string json = Jose.JWT.Decode(token, secretKey);
-
-                            await service.HttpPutRequestReceived (ctx);
                         }
                     }
                 });
