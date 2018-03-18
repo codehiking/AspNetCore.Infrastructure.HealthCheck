@@ -60,9 +60,12 @@ namespace CodeHike.Microservices.HttpHealthCheck
                         {
                             IAuthorizationFilter filter = app.ApplicationServices.GetService<IAuthorizationFilter>();
 
-                            if(await filter.FilterAsync(ctx))
+                            if(filter != null)
                             {
-                                await service.HttpPutRequestReceived (ctx);
+                                if(await filter.FilterAsync(ctx))
+                                {
+                                    await service.HttpPutRequestReceived (ctx);
+                                }
                             }
                         }
                     }

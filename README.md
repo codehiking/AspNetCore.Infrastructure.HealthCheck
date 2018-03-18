@@ -1,6 +1,6 @@
 # HTTP Health checking for ASP.NET applications.
 
-HTTP health checking is a common way to balance load amongs instances of the same HTTP service. Instances hosting the service are reponsible of exposing an HTTP route that will generally indicates their respective states through the use of HTTP status.
+HTTP health checking is a common way to balance load amongs instances of the same HTTP service.Instances hosting the service are reponsible of exposing an HTTP route that will generally indicates their respective states through the use of HTTP status.
 
 - An HTTP 2xx generally means that the service is up and running.
 - An HTTP 5xx is used to indicates that the service is unavailable.
@@ -14,8 +14,8 @@ Here is how you can configure Dependency Injection for your application:
 ```csharp
 public void ConfigureServices (IServiceCollection services)
 {
-    services.AddMvc();
-    services.AddHttpHealthService();
+    services.AddHttpHealthService ();
+    services.AddMvc ();
 }
 ```
 
@@ -48,6 +48,26 @@ The middleware supports PUT operation.
 
 ```
 curl -X PUT -i http://localhost:5000/status --data Down
+```
+
+But to be able to toggle state, you need to configure the authorization mechanism:
+
+```csharp
+public void ConfigureServices (IServiceCollection services)
+{
+    // Get JWT token secret from configuration.
+    string secret = Configuration.GetValue<string>("Secret");
+
+    // Setting basic authorization layer.
+    InMemoryAuthorizationRepository repository = new InMemoryAuthorizationRepository();
+    repository.AddIdentity("1234567890");
+
+    // IAuthorizationFilter services must be declared to allow to toggle state. 
+    services.AddSingleton<IAuthorizationFilter>(new JwtAuthorizationFilter(repository, secret));
+
+    services.AddHttpHealthService ();
+    services.AddMvc ();
+}
 ```
 
 ### Testing the API
