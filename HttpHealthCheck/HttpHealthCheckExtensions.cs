@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections;
 using System.Collections.Generic;
-using CodeHike.Microservices.HttpHealthCheck.Authorization;
+using HttpHealthCheck.Authorization;
 
-namespace CodeHike.Microservices.HttpHealthCheck
+namespace HttpHealthCheck
 {
     /// <summary>
     /// Provides extensions.
-    /// </summary>
+    /// </summary
     public static class HealthCheckExtensions
     {
         /// <summary>
@@ -29,8 +29,19 @@ namespace CodeHike.Microservices.HttpHealthCheck
         /// <param name="healthService"></param>
         public static IServiceCollection AddHttpHealthService (this IServiceCollection services)
         {
-            return services.AddSingleton<IHttpHealthService> (HttpHealthService.Default);
+            return services.AddSingleton<IHttpHealthService>(HttpHealthService.Default);
         }
+
+        /// <summary>
+        /// Add default HTTP health service to the provided <see cref="IServiceCollection"/>.
+        /// </summary>
+        /// <param name="healthService"></param>
+        public static IServiceCollection AddHttpHealthService(this IServiceCollection services, IAuthorizationFilter filter)
+        {
+            services.AddSingleton<IHttpHealthService>(HttpHealthService.Default);
+            return services.AddSingleton(filter);
+        }
+
         /// <summary>
         /// Add HTTP base health check middleware to the <see cref="IApplicationBuilder"/> request execution pipe.
         /// </summary>

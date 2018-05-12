@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace CodeHike.Microservices.HttpHealthCheck.Authorization
+namespace HttpHealthCheck.Authorization
 {
     public interface IAuthorizationFilter
     {

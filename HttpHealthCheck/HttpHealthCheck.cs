@@ -2,9 +2,9 @@ using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.Http;
-namespace CodeHike.Microservices.HttpHealthCheck
+
+namespace HttpHealthCheck
 {
     /// <summary>
     /// Implements a basic HTTP Health check.

@@ -1,4 +1,4 @@
-namespace CodeHike.Microservices.HttpHealthCheck
+namespace HttpHealthCheck
 {
     /// <summary>
     /// Default health enumeration.

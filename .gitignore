@@ -1,6 +1,4 @@
-CodeHike.Microservices.HttpHealthCheck/obj/
-CodeHike.Microservices.HttpHealthCheck/bin/
-WebApiExample/obj/
-WebApiExample/bin/
-bin
 obj
+bin
+.vs
+.vscode

@@ -18,6 +18,7 @@ namespace WebApiExample
                 .UseKestrel ()
                 .UseStartup<Startup> ()
                 .UseContentRoot (Directory.GetCurrentDirectory ())
+                .UseUrls("http://localhost:5000")
                 .ConfigureAppConfiguration ((a, b)=> b
                     .AddJsonFile ("appsettings.json", false, true)
                     .AddJsonFile ($"appsettings.{a.HostingEnvironment.EnvironmentName}.json", true, true))
@@ -27,9 +28,9 @@ namespace WebApiExample
                     logging.AddConsole ();
                     logging.AddDebug ();
                 })
-                .Build ();
+                .Build();
 
-            webHost.Run ();
+            webHost.Run();
         }
     }
 }

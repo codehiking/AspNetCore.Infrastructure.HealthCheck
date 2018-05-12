@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-
 using Microsoft.AspNetCore.Http;
-namespace CodeHike.Microservices.HttpHealthCheck
+
+namespace HttpHealthCheck
 {
     /// <summary>
     /// Defines a contract to handle health over HTTP requests.

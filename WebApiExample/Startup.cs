@@ -1,5 +1,5 @@
-using CodeHike.Microservices.HttpHealthCheck;
-using CodeHike.Microservices.HttpHealthCheck.Authorization;
+using HttpHealthCheck;
+using HttpHealthCheck.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -30,10 +30,7 @@ namespace WebApiExample
             InMemoryAuthorizationRepository repository = new InMemoryAuthorizationRepository();
             repository.AddIdentity("1234567890");
 
-            // IAuthorizationFilter services must be declared to allow to toggle state. 
-            services.AddSingleton<IAuthorizationFilter>(new JwtAuthorizationFilter(repository, secret));
-
-            services.AddHttpHealthService ();
+            services.AddHttpHealthService(new JwtAuthorizationFilter(repository, secret));
             services.AddMvc ();
         }
 
@@ -49,7 +46,7 @@ namespace WebApiExample
 
             app.UseMvc ();
 
-            HttpHealthService.ToggleState (Health.Up);
+            HttpHealthService.ToggleState(Health.Up);
 
             Logger.LogInformation ("Application is ready.");
         }

@@ -1,7 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-namespace CodeHike.Microservices.HttpHealthCheck
+
+namespace HttpHealthCheck
 {
     public static class HttpHealthService
     {

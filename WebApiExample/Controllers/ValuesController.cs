@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+
 namespace HealthCheckWebapi.Controllers
 {
     [Route ("api/[controller]")]
@@ -19,7 +17,7 @@ namespace HealthCheckWebapi.Controllers
             };
         }
         // GET api/values/5
-        [HttpGet ("{id}")]
+        [HttpGet("{id}")]
         public string Get (int id)
         {
             return "value";
