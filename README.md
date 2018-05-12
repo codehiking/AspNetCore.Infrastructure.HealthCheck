@@ -5,7 +5,6 @@
 It is a common configuration to have the same HTTP application deployed on multiple nodes/servers with a load-balancer (or multiple load-balancers working together) doing some kind of round-robing (or sticky) distribution of HTTP requests.
 
 ![Alt text](./HttpHealthChecking.svg)
-<img src="./HttpHealthChecking.svg">
 
  In that case, HTTP health checking is a way to detect down members so that the load that was previously handled but the faulting service instance is gracefully re-balanced to others instances. Do achieve this, the HTTP service can be reponsible of exposing an HTTP route that will indicates its current states using HTTP status-code.
 
